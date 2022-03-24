@@ -103,7 +103,7 @@
             Dim taxable = particularRow.Cells(6).Value
             Dim i As Integer = taxSummaries.FindIndex(Function(elem)
                                                           If taxType = GstType.LGST Then
-                                                              If elem.Gst = $"{Val(particularRow.Cells("Gst").Value) / 2}% + {Val(particularRow.Cells("Gst").Value) / 2}%" Then
+                                                              If elem.Gst = $"{Val(gst) / 2}% + {Val(particularRow.Cells("Gst").Value) / 2}%" Then
                                                                   Return True
                                                               End If
                                                           ElseIf taxType = GstType.IGST Then
@@ -114,7 +114,7 @@
                                                           Return False
                                                       End Function)
             If i <> -1 Then
-                taxSummaries(i).Taxable += Format(Val(taxSummaries(i).Taxable) + Val(particularRow.Cells("Taxable").Value))
+                taxSummaries(i).Taxable += Format(Val(taxSummaries(i).Taxable) + Val(taxable))
                 taxSummaries(i).SGSTAmount += Format(Val(gstAmount) / 2)
                 taxSummaries(i).CGSTAmount += Format(Val(gstAmount) / 2)
                 taxSummaries(i).IGSTAmount += gstAmount
@@ -128,10 +128,10 @@
                 taxSummary.CGSTAmount = Val(gstAmount) / 2
                 taxSummary.IGSTAmount = gstAmount
                 If taxType = GstType.LGST Then
-                    taxSummary.Gst = $"{Val(particularRow.Cells("Gst").Value) / 2}% + {Val(particularRow.Cells("Gst").Value) / 2}%"
+                    taxSummary.Gst = $"{Val(gst) / 2}% + {Val(gst) / 2}%"
                     taxSummaries.Add(taxSummary)
                 ElseIf taxType = GstType.IGST Then
-                    taxSummary.Gst = $"{Format(Val(taxSummaries(i).Gst) + Val(particularRow.Cells("Gst").Value))}%"
+                    taxSummary.Gst = $"{Format(Val(gst) + Val(gst))}%"
                     taxSummaries.Add(taxSummary)
                 Else
                     'Do Nothing
