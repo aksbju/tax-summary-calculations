@@ -72,6 +72,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmApp.Designer.vb">
+      <DependentUpon>FrmApp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmApp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmGst.Designer.vb">
       <DependentUpon>FrmGst.vb</DependentUpon>
     </Compile>
@@ -108,6 +114,9 @@
     <Compile Include="TaxSummaryModel.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmApp.resx">
+      <DependentUpon>FrmApp.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmGst.resx">
       <DependentUpon>FrmGst.vb</DependentUpon>
     </EmbeddedResource>

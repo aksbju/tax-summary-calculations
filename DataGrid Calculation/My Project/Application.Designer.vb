@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.DataGrid_Calculation.FrmGst
+            Me.MainForm = Global.DataGrid_Calculation.FrmApp
         End Sub
     End Class
 End Namespace
