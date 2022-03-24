@@ -103,35 +103,41 @@
             Dim taxable = particularRow.Cells(6).Value
             Dim i As Integer = taxSummaries.FindIndex(Function(elem)
                                                           If taxType = GstType.LGST Then
-                                                              If elem.Gst = $"{Val(gst) / 2}% + {Val(particularRow.Cells("Gst").Value) / 2}%" Then
+                                                              If elem.Gst = $"{Format(Val(gst) / 2)}% + {Format(Val(gst) / 2)}%" Then
                                                                   Return True
                                                               End If
                                                           ElseIf taxType = GstType.IGST Then
-                                                              If elem.Gst = $"{Format(Val(taxSummaries(i).Gst) + Val(particularRow.Cells("Gst").Value))}" Then
+                                                              If elem.Gst = $"{Format(Val(gst))}%" Then
                                                                   Return True
                                                               End If
                                                           End If
                                                           Return False
                                                       End Function)
             If i <> -1 Then
-                taxSummaries(i).Taxable += Format(Val(taxSummaries(i).Taxable) + Val(taxable))
-                taxSummaries(i).SGSTAmount += Format(Val(gstAmount) / 2)
-                taxSummaries(i).CGSTAmount += Format(Val(gstAmount) / 2)
-                taxSummaries(i).IGSTAmount += gstAmount
+                taxSummaries(i).Taxable += Format(Val(taxable))
 
+                If taxType = GstType.LGST Then
+                    taxSummaries(i).SGSTAmount += Format(Val(gstAmount) / 2)
+                    taxSummaries(i).CGSTAmount += Format(Val(gstAmount) / 2)
+
+                ElseIf taxType = GstType.IGST Then
+                    taxSummaries(i).IGSTAmount += Format(Val(gstAmount))
+                Else
+                    'Do Nothing
+                End If
 
             Else
-                Dim taxSummary As GstSummaryModel = New GstSummaryModel
+                    Dim taxSummary As GstSummaryModel = New GstSummaryModel
                 taxSummary.TaxType = taxType
                 taxSummary.Taxable = taxable
-                taxSummary.SGSTAmount = Val(gstAmount) / 2
-                taxSummary.CGSTAmount = Val(gstAmount) / 2
-                taxSummary.IGSTAmount = gstAmount
                 If taxType = GstType.LGST Then
-                    taxSummary.Gst = $"{Val(gst) / 2}% + {Val(gst) / 2}%"
+                    taxSummary.SGSTAmount = Val(gstAmount) / 2
+                    taxSummary.CGSTAmount = Val(gstAmount) / 2
+                    taxSummary.Gst = $"{Format(Val(gst) / 2)}% + {Format(Val(gst) / 2)}%"
                     taxSummaries.Add(taxSummary)
                 ElseIf taxType = GstType.IGST Then
-                    taxSummary.Gst = $"{Format(Val(gst) + Val(gst))}%"
+                    taxSummary.IGSTAmount = gstAmount
+                    taxSummary.Gst = $"{Format(Val(gst))}%"
                     taxSummaries.Add(taxSummary)
                 Else
                     'Do Nothing
@@ -150,9 +156,9 @@
         Dim rtbTxt As String = String.Empty
         For Each taxSummary As GstSummaryModel In taxSummaries
             If taxSummary.TaxType = GstType.LGST Then
-                rtbTxt += $"LGST  {taxSummary.Gst}%  {taxSummary.Taxable}  {taxSummary.SGSTAmount}  {taxSummary.CGSTAmount}  {taxSummary.IGSTAmount}{Environment.NewLine}"
+                rtbTxt += $"LGST  {taxSummary.Gst}  {taxSummary.Taxable}  {taxSummary.SGSTAmount}  {taxSummary.CGSTAmount}  {taxSummary.IGSTAmount}{Environment.NewLine}"
             ElseIf taxSummary.TaxType = GstType.IGST Then
-                rtbTxt += $"IGST  {taxSummary.Gst}%  {taxSummary.Taxable}  {taxSummary.SGSTAmount}  {taxSummary.CGSTAmount}  {taxSummary.IGSTAmount}{Environment.NewLine}"
+                rtbTxt += $"IGST  {taxSummary.Gst}  {taxSummary.Taxable}  {taxSummary.SGSTAmount}  {taxSummary.CGSTAmount}  {taxSummary.IGSTAmount}{Environment.NewLine}"
             Else
                 'Do Nothing
             End If
