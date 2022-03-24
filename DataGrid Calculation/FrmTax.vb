@@ -1,4 +1,4 @@
-﻿Public Class FrmApp
+﻿Public Class FrmTax
     Dim particulars As List(Of ParticularModel)
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
         Dim data As ParticularModel = New ParticularModel()
@@ -37,7 +37,7 @@
 
     End Sub
 
-    Private Sub CBoxGSTPercent_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub CBoxTaxPercent_SelectedIndexChanged(sender As Object, e As EventArgs)
         Me.TBoxSubtotal.Text = (Val(Me.TBoxUnitPrice.Text) * Val(Me.TBoxQty.Text)) + (Val(Me.TBoxUnitPrice.Text) * Val(Me.TBoxQty.Text) * (Val(TBoxTaxPercentage.Text.Replace("%", "").Trim()) / 100))
     End Sub
     Private Sub TBoxUnitPrice_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TBoxUnitPrice.KeyPress
@@ -111,7 +111,7 @@
         ' Rich Text Box
         Dim rtbTxt As String = String.Empty
         For Each taxSummary As TaxSummaryModel In taxSummaries
-            rtbTxt += $"{taxSummary.Taxable}  {taxSummary.TaxPercentage}  {taxSummary.Tax}{Environment.NewLine}"
+            rtbTxt += $"{taxSummary.TaxPercentage}  {taxSummary.Taxable}  {taxSummary.Tax}{Environment.NewLine}"
         Next
         RichTextBox1.Text = rtbTxt
     End Sub

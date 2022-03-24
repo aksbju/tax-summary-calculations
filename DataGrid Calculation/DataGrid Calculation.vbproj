@@ -72,18 +72,28 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ParticularModel.vb" />
-    <Compile Include="FrmApp.vb">
+    <Compile Include="FrmGst.Designer.vb">
+      <DependentUpon>FrmGst.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGst.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmApp.Designer.vb">
-      <DependentUpon>FrmApp.vb</DependentUpon>
+    <Compile Include="GstPerticularModel.vb" />
+    <Compile Include="GstSummaryModel.vb" />
+    <Compile Include="GstType.vb" />
+    <Compile Include="ParticularModel.vb" />
+    <Compile Include="FrmTax.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTax.Designer.vb">
+      <DependentUpon>FrmTax.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -98,8 +108,11 @@
     <Compile Include="TaxSummaryModel.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FrmApp.resx">
-      <DependentUpon>FrmApp.vb</DependentUpon>
+    <EmbeddedResource Include="FrmGst.resx">
+      <DependentUpon>FrmGst.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTax.resx">
+      <DependentUpon>FrmTax.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
